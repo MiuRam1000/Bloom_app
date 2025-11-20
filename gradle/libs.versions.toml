@@ -14,6 +14,7 @@ google-ai = "0.9.0"
 coil = "2.6.0"
 navigation-compose = "2.7.6"
 google-services = "4.4.2"
+material3 = "1.4.0"
 
 [libraries]
 # Tes libs actuelles (on les garde)
@@ -53,6 +54,7 @@ coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coi
 junit = { group = "junit", name = "junit", version = "4.13.2" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version = "1.3.0" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version = "3.7.0" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
