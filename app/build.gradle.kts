@@ -77,6 +77,9 @@ dependencies {
     implementation(libs.googleid)                     // Google Sign-In moderne
     implementation(libs.play.services.auth)
 
+    //Dependences
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
