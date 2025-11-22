@@ -79,7 +79,13 @@ dependencies {
     implementation(libs.play.services.auth)
 
     //Dependences
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
+
+    // Icônes Material (propre avec version catalog)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.androidx.compose.material.icons.extended)
+
+    implementation(libs.coil.compose)
 
 
     testImplementation(libs.junit)

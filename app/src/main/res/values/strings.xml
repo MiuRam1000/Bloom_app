@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Bloom_app</string>
+    <string name="add_discovery_fab">Nouvelle découverte</string>
+
+    <string name="empty_journal">Aucune découverte pour le moment…\nPrends une photo !</string>
+    <string name="sign_in">Se connecter</string>
+    <string name="sign_up">Créer un compte</string>
+    <string name="or_google">Ou avec Google</string>
 </resources>

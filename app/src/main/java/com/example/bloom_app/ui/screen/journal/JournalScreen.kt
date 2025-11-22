@@ -17,6 +17,10 @@ import com.example.bloom_app.R
 import com.example.bloom_app.domaine.model.Discovery
 import com.example.bloom_app.ui.component.DiscoveryCard
 import org.koin.androidx.compose.koinViewModel
+import androidx.compose.ui.graphics.Color
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

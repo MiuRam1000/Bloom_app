@@ -10,7 +10,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.bloom_app.domaine.model.Discovery
-import com.example.bloom_app.util.DateUtils
+    //import com.example.bloom_app.util.DateUtils
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
