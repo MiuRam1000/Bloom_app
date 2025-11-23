@@ -16,6 +16,7 @@ coil = "2.6.0"
 navigation-compose = "2.7.6"
 google-services = "4.4.2"
 material3 = "1.4.0"
+foundation = "1.9.5"
 
 [libraries]
 # Tes libs actuelles (on les garde)
@@ -58,6 +59,7 @@ junit = { group = "junit", name = "junit", version = "4.13.2" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version = "1.3.0" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version = "3.7.0" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
+androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
