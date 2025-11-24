@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DiscoveryDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(discovery: DiscoveryEntity)
 

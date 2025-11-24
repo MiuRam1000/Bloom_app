@@ -1,7 +1,7 @@
+// domaine/model/Discovery.kt
 package com.example.bloom_app.domaine.model
 
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.bloom_app.util.DateUtils
 
 data class Discovery(
     val id: Long = 0,
@@ -11,6 +11,6 @@ data class Discovery(
     val imagePath: String,
     val timestamp: Long = System.currentTimeMillis()
 ) {
-    fun formattedDate(): String =
-        SimpleDateFormat("dd MMM yyyy à HH:mm", Locale.getDefault()).format(Date(timestamp))
+    val formattedDate: String
+        get() = DateUtils.formatTimestamp(timestamp)
 }
