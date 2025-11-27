@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-//    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.google.services)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -68,11 +68,14 @@ dependencies {
     // Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-//    kapt(libs.androidx.room.compiler)
+
 
     // Koin (DI)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
+    ksp(libs.androidx.room.compiler)
+
+
 
     // Firebase Auth + Google Sign-In
     implementation(platform(libs.firebase.bom))

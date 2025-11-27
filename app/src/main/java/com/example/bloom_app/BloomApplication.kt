@@ -14,7 +14,7 @@ class BloomApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@BloomApplication)
-            modules(appModule)
+            modules(com.example.bloom_app.di.appModule)
         }
     }
 }
