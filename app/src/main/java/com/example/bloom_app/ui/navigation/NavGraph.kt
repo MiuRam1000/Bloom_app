@@ -1,4 +1,3 @@
-// ui/navigation/NavGraph.kt
 package com.example.bloom_app.ui.navigation
 
 import androidx.compose.runtime.*
@@ -7,22 +6,19 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.bloom_app.ui.auth.AuthViewModel
 import com.example.bloom_app.ui.screen.auth.AuthScreen
+import com.example.bloom_app.ui.screen.auth.AuthViewModel
+import com.example.bloom_app.ui.screen.auth.AuthState
 import com.example.bloom_app.ui.screen.journal.JournalScreen
 import com.example.bloom_app.ui.screen.capture.CaptureScreen
 import com.example.bloom_app.ui.screen.detail.DetailScreen
-//import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.auth.AuthState
-import com.example.bloom_app.ui.auth.AuthState   // LE BON
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun NavGraph(navController: NavHostController) {
-    // On injecte AuthViewModel une seule fois pour tout le NavGraph
     val authViewModel: AuthViewModel = koinViewModel()
     val authState by authViewModel.authState.collectAsState()
 
-    // REDIRECTION AUTOMATIQUE SELON L’ÉTAT D’AUTHENTIFICATION
     LaunchedEffect(authState) {
         when (authState) {
             is AuthState.Authenticated -> {
@@ -53,7 +49,6 @@ fun NavGraph(navController: NavHostController) {
             AuthScreen(navController = navController)
         }
 
-        // TOUS LES ÉCRANS PROTÉGÉS — ACCESSIBLES UNIQUEMENT SI CONNECTÉ
         composable("journal") {
             JournalScreen(navController = navController)
         }

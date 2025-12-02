@@ -6,4 +6,6 @@
     <string name="sign_in">Se connecter</string>
     <string name="sign_up">Créer un compte</string>
     <string name="or_google">Ou avec Google</string>
+    <string name="default_web_client_id">TON_WEB_CLIENT_ID.apps.googleusercontent.com</string>
+
 </resources>

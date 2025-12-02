@@ -1,18 +1,33 @@
-    package com.example.bloom_app.util
+package com.example.bloom_app.util
 
-    import com.example.bloom_app.data.local.entity.DiscoveryEntity
-    import com.example.bloom_app.domaine.model.Discovery
+import com.example.bloom_app.data.local.entity.DiscoveryEntity
+import com.example.bloom_app.domaine.model.Discovery
 
-
-    // Convertit une Entity Room → Modèle domaine propre (utilisé partout dans les ViewModels)
-    fun DiscoveryEntity.toDomain() = Discovery(
-        id = id,
-        userId = userId,
-        name = name,
-        summary = summary,
-        imagePath = imagePath,
-        timestamp = timestamp
+// Discovery → DiscoveryEntity (pour insert/delete)
+fun Discovery.toEntity(): DiscoveryEntity {
+    return DiscoveryEntity(
+        id = this.id,
+        userId = this.userId,
+        name = this.name,
+        summary = this.summary,
+        imagePath = this.imagePath,
+        timestamp = this.timestamp
     )
+}
 
-    // Convertit une liste d’Entity → liste de modèle domaine (pratique avec les Flow<List<…>>)
-    fun List<DiscoveryEntity>.toDomain() = map { it.toDomain() }
+// DiscoveryEntity → Discovery (pour affichage)
+fun DiscoveryEntity.toDomain(): Discovery {
+    return Discovery(
+        id = this.id,
+        userId = this.userId,
+        name = this.name,
+        summary = this.summary,
+        imagePath = this.imagePath,
+        timestamp = this.timestamp
+    )
+}
+
+// List<DiscoveryEntity> → List<Discovery>
+fun List<DiscoveryEntity>.toDomain(): List<Discovery> {
+    return this.map { it.toDomain() }
+}

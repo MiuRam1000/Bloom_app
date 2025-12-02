@@ -1,42 +1,44 @@
-// util/ImageSaver.kt
 package com.example.bloom_app.util
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
 import java.io.File
 import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
 
 object ImageSaver {
 
-    private fun getPhotosDirectory(context: Context): File {
-        val dir = File(context.filesDir, "bloom_discoveries")
-        if (!dir.exists()) dir.mkdirs()
+    private fun getImagesDir(context: Context): File {
+        val dir = File(context.filesDir, "discoveries")
+        dir.mkdirs()
         return dir
     }
 
+    /** Photo caméra → fichier interne */
     fun saveBitmap(context: Context, bitmap: Bitmap): String {
-        val filename = "discovery_${System.currentTimeMillis()}.jpg"
-        val file = File(getPhotosDirectory(context), filename)
+        val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val file = File(getImagesDir(context), "discovery_$timestamp.jpg")
 
         FileOutputStream(file).use { out ->
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 95, out)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out)
         }
         return file.absolutePath
     }
 
+    /** Galerie → fichier interne */
     fun saveFromUri(context: Context, uri: Uri): String? {
         return try {
-            val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                ImageDecoder.createSource(context.contentResolver, uri)
-                    .let { ImageDecoder.decodeBitmap(it) }
-            } else {
-                @Suppress("DEPRECATION")
-                android.provider.MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
+            context.contentResolver.openInputStream(uri)?.use { input ->
+                val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+                val file = File(getImagesDir(context), "discovery_$timestamp.jpg")
+
+                FileOutputStream(file).use { output ->
+                    input.copyTo(output)
+                }
+                file.absolutePath
             }
-            saveBitmap(context, bitmap)
         } catch (e: Exception) {
             e.printStackTrace()
             null
