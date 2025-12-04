@@ -34,7 +34,7 @@ fun JournalScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { navController.navigate("capture") },
-                containerColor = Color(0xFF4CAF50), // vert Bloom exact comme la maquette
+                containerColor = Color(0xFF4CAF50),
                 contentColor = Color.White
             ) {
                 Icon(

@@ -7,12 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bloom_app.domaine.model.Discovery
 import com.example.bloom_app.domaine.usecase.AddDiscoveryUseCase
-import com.example.bloom_app.domaine.usecase.AnalyzeImageWithGeminiUseCase
+import com.example.bloom_app.domaine.usecase.AnalyzeImageUseCase
 import com.example.bloom_app.util.ImageSaver
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import com.example.bloom_app.domaine.usecase.GeminiAnalyzeImageUseCase
 
 sealed class CaptureState {
     object Idle : CaptureState()
@@ -22,7 +23,7 @@ sealed class CaptureState {
 }
 
 class CaptureViewModel(
-    private val analyzeImageUseCase: AnalyzeImageWithGeminiUseCase,
+    private val analyzeImageUseCase: AnalyzeImageUseCase,
     private val addDiscoveryUseCase: AddDiscoveryUseCase
 ) : ViewModel() {
 
@@ -62,9 +63,9 @@ class CaptureViewModel(
     // Appel Gemini + sauvegarde en base
     private suspend fun analyzeAndSaveImage(imagePath: String) {
         try {
-            val result = analyzeImageUseCase(imagePath)
+            val result = analyzeImageUseCase.invoke(imagePath)
             if (result == null) {
-                _captureState.value = CaptureState.Error("Gemini analysis failed")
+                _captureState.value = CaptureState.Error("IA analysis failed")
                 return
             }
 
@@ -79,12 +80,13 @@ class CaptureViewModel(
                 timestamp = System.currentTimeMillis()
             )
 
-            addDiscoveryUseCase(discovery)
+            addDiscoveryUseCase.invoke(discovery)
             _captureState.value = CaptureState.Success(name, summary)
         } catch (e: Exception) {
             _captureState.value = CaptureState.Error(e.message ?: "Unknown error")
         }
     }
+
 
     fun resetState() {
         _captureState.value = CaptureState.Idle

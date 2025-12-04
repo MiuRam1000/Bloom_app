@@ -13,3 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+# API Keys - Bloom App
+/res/values/secrets.xml
+secrets.xml
+

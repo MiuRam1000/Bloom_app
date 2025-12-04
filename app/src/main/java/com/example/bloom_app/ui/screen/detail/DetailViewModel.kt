@@ -24,7 +24,7 @@ class DetailViewModel(
     /** Charge la bonne discovery PAR ID */
     fun loadDiscovery(id: Long) {
         viewModelScope.launch {
-            getDiscoveriesUseCase().collectLatest { discoveries ->
+            getDiscoveriesUseCase.invoke().collectLatest { discoveries ->
                 _discovery.value = discoveries.find { it.id == id }
             }
         }
@@ -33,7 +33,7 @@ class DetailViewModel(
     /** Supprime et met à jour l'état */
     fun deleteDiscovery(discoveryId: Long) {
         viewModelScope.launch {
-            deleteDiscoveryUseCase(discoveryId)
+            deleteDiscoveryUseCase.invoke(discoveryId)
             _isDeleted.value = true
             _discovery.value = null  // ← Efface la discovery
         }

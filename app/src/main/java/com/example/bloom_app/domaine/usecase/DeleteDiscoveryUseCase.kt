@@ -7,7 +7,7 @@ class DeleteDiscoveryUseCase(
     private val repository: DiscoveryRepository
 ) {
 
-    suspend operator fun invoke(discoveryId: Long) {
+    suspend  fun invoke(discoveryId: Long) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
         repository.deleteDiscovery(discoveryId, userId)
     }

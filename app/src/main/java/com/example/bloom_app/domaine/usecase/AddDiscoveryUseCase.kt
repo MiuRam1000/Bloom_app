@@ -7,7 +7,7 @@ class AddDiscoveryUseCase(
     private val repository: DiscoveryRepository
 ) {
 
-    suspend operator fun invoke(discovery: Discovery) {
-        repository.addDiscovery(discovery)  // ✅ CORRECT !
+    suspend fun invoke(discovery: Discovery) {
+        repository.addDiscovery(discovery)
     }
 }

@@ -9,7 +9,7 @@ class GetDiscoveriesUseCase(
     private val repository: DiscoveryRepository
 ) {
 
-    operator fun invoke(): Flow<List<Discovery>> {
+    fun invoke(): Flow<List<Discovery>> {  // ✅ fun (pas operator, pas suspend)
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: "temp_user_id"
         return repository.getDiscoveriesForUser(userId)
     }

@@ -14,7 +14,7 @@ class JournalViewModel(
     private val deleteDiscoveryUseCase: DeleteDiscoveryUseCase
 ) : ViewModel() {
 
-    val discoveries = getDiscoveriesUseCase()
+    val discoveries = getDiscoveriesUseCase.invoke()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
@@ -23,7 +23,7 @@ class JournalViewModel(
 
     fun deleteDiscovery(id: Long) {
         viewModelScope.launch {
-            deleteDiscoveryUseCase(id)
+            deleteDiscoveryUseCase.invoke(id)
         }
     }
 
