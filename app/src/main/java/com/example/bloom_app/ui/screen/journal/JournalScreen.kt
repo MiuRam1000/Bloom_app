@@ -1,26 +1,24 @@
-// ui/screen/journal/JournalScreen.kt
 package com.example.bloom_app.ui.screen.journal
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material3.*
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.bloom_app.R
-import com.example.bloom_app.domaine.model.Discovery
 import com.example.bloom_app.ui.component.DiscoveryCard
+import com.example.bloom_app.ui.screen.auth.AuthViewModel
 import org.koin.androidx.compose.koinViewModel
-import androidx.compose.ui.graphics.Color
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,8 +27,22 @@ fun JournalScreen(
     viewModel: JournalViewModel = koinViewModel()
 ) {
     val discoveries by viewModel.discoveries.collectAsState(initial = emptyList())
+    val authViewModel: AuthViewModel = koinViewModel()
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Bloom journal") },
+                actions = {
+                    IconButton(onClick = { authViewModel.signOut() }) {
+                        Icon(
+                            imageVector = Icons.Default.Logout,
+                            contentDescription = "Déconnexion"
+                        )
+                    }
+                }
+            )
+        },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { navController.navigate("capture") },

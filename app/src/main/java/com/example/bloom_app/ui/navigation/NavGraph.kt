@@ -1,6 +1,8 @@
 package com.example.bloom_app.ui.navigation
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -17,24 +19,21 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun NavGraph(navController: NavHostController) {
     val authViewModel: AuthViewModel = koinViewModel()
-    val authState by authViewModel.authState.collectAsState()
+    val authStateState = authViewModel.authState.collectAsState()
+    val authState = authStateState.value
 
     LaunchedEffect(authState) {
         when (authState) {
             is AuthState.Authenticated -> {
-                if (navController.currentDestination?.route != "journal") {
-                    navController.navigate("journal") {
-                        popUpTo("auth") { inclusive = true }
-                        launchSingleTop = true
-                    }
+                navController.navigate("journal") {
+                    popUpTo("auth") { inclusive = true }
+                    launchSingleTop = true
                 }
             }
             is AuthState.Unauthenticated -> {
-                if (navController.currentDestination?.route != "auth") {
-                    navController.navigate("auth") {
-                        popUpTo(0) { inclusive = true }
-                        launchSingleTop = true
-                    }
+                navController.navigate("auth") {
+                    popUpTo("journal") { inclusive = true }
+                    launchSingleTop = true
                 }
             }
             else -> Unit
@@ -48,15 +47,12 @@ fun NavGraph(navController: NavHostController) {
         composable("auth") {
             AuthScreen(navController = navController)
         }
-
         composable("journal") {
             JournalScreen(navController = navController)
         }
-
         composable("capture") {
             CaptureScreen(navController = navController)
         }
-
         composable(
             route = "detail/{id}",
             arguments = listOf(navArgument("id") { type = NavType.LongType })

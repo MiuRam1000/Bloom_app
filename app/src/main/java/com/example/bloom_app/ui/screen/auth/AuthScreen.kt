@@ -57,7 +57,7 @@ fun AuthScreen(navController: NavController) {
         GoogleSignIn.getClient(context, gso)
     }
 
-    // Google Launcher ✅ CORRIGÉ
+
     val googleLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
