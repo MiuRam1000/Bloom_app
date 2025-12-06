@@ -1,5 +1,6 @@
 package com.example.bloom_app.ui.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -15,25 +16,34 @@ import com.example.bloom_app.ui.screen.journal.JournalScreen
 import com.example.bloom_app.ui.screen.capture.CaptureScreen
 import com.example.bloom_app.ui.screen.detail.DetailScreen
 import org.koin.androidx.compose.koinViewModel
+import androidx.compose.runtime.getValue
+
 
 @Composable
 fun NavGraph(navController: NavHostController) {
     val authViewModel: AuthViewModel = koinViewModel()
-    val authStateState = authViewModel.authState.collectAsState()
-    val authState = authStateState.value
+//    val authStateState = authViewModel.authState.collectAsState()
+//    val authState = authStateState.value
+    val authState by authViewModel.authState.collectAsState()
 
     LaunchedEffect(authState) {
+        Log.d("Auth", "state = $authState  current=${navController.currentDestination?.route}")
+
         when (authState) {
             is AuthState.Authenticated -> {
-                navController.navigate("journal") {
-                    popUpTo("auth") { inclusive = true }
-                    launchSingleTop = true
+                if (navController.currentDestination?.route != "journal") {
+                    navController.navigate("journal") {
+                        popUpTo("auth") { inclusive = true }
+                        launchSingleTop = true
+                    }
                 }
             }
             is AuthState.Unauthenticated -> {
-                navController.navigate("auth") {
-                    popUpTo("journal") { inclusive = true }
-                    launchSingleTop = true
+                if (navController.currentDestination?.route != "auth") {
+                    navController.navigate("auth") {
+                        popUpTo(0) { inclusive = true }   // on vide tout le backstack
+                        launchSingleTop = true
+                    }
                 }
             }
             else -> Unit

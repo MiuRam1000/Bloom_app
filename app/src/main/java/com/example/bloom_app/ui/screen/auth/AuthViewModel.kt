@@ -93,5 +93,6 @@ class AuthViewModel : ViewModel() {
     fun signOut() {
         auth.signOut()
         _authState.value = AuthState.Unauthenticated
+        android.util.Log.d("AuthVM", "signOut -> ${_authState.value}")
     }
 }
